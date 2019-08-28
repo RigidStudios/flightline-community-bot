@@ -1,0 +1,12 @@
+{
+  "name": "flightlinecommunitybot",
+  "version": "1.0.0",
+  "description": "Flightline Community Bot",
+  "main": "index.js",
+  "author": "JusSupra#0962",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "pg": "^7.12.1"
+  }
+}
