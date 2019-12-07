@@ -66,7 +66,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "login [username] [AirportICAO] [Position]",
-    usage: "Logs you into an ATC session",
+    description: "Logs you into an ATC session",
     moderation: false,
     atc: true
 }
