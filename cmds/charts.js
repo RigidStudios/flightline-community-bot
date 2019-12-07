@@ -19,7 +19,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "charts",
-    usage: "Gives you link to the chart page.",
+    description: "Gives you link to the chart page.",
     moderation: false,
     atc: false
 }
