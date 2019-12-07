@@ -6,6 +6,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     function embedMsgATC(){
         let embed = new Discord.RichEmbed()
+        embed.addField("***Note:***", "Anything that has [something], takes a parameter.")
             index.commands.forEach(el => {
                 if(el.help.moderation === true) { return; }
                 else if(el.help.ownerOnly === true) { return; }
