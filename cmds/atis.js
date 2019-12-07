@@ -26,7 +26,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "atis [AirportICAO]",
-    usage: "Displays the ATIS of an Airport. Takes in the Airport ICAO as a parameter.",
+    description: "Displays the ATIS of an Airport. Takes in the Airport ICAO as a parameter.",
     moderation: false,
     atc: false
 }
