@@ -15,7 +15,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "roles",
-    usage: "Gives the starter roles for all members.",
+    description: "Gives the starter roles for all members.",
     moderation: true,
     atc: false
 }
