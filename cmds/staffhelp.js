@@ -5,6 +5,7 @@ const index = require("../index.js");
 
 function embedStaffHelp(){
     let embed = new Discord.RichEmbed()
+    embed.addField("***Note:***", "Anything that has [something], takes a parameter.")
         index.commands.forEach(el => {
             if(el.help.moderation === false) { return; }
             else if(el.help.atc === true) { return; }
