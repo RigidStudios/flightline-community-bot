@@ -26,7 +26,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "logout",
-    usage: "Logs you out of your session that you are logged into.",
+    description: "Logs you out of your session that you are logged into.",
     moderation: false,
     atc: true
 }
