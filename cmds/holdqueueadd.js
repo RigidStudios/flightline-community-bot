@@ -65,7 +65,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "holdqueueadd [AirportICAO] [Callsign]",
-    usage: "Adds an aircraft to the holding queue of an airport.",
+    description: "Adds an aircraft to the holding queue of an airport.",
     moderation: false,
     atc: true
 }
