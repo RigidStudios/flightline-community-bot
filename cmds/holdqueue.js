@@ -39,7 +39,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "holdqueue [AirportICAO]",
-    usage: "Displays the Holdqueue of an airport",
+    description: "Displays the Holdqueue of an airport",
     moderation: false,
     atc: false
 }
