@@ -12,7 +12,7 @@ module.exports.run = async (bot, postgres, message, args) => {
                 else if(el.help.ownerOnly === true) { return; }
                 else if(el.help.name === "atchelp") { return; }
                 else if(el.help.atc === true){
-                    embed.addField(prefix + el.help.name, el.help.usage)
+                    embed.addField(prefix + el.help.name, el.help.description)
                 }
             });
         
