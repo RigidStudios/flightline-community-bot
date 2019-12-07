@@ -35,7 +35,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "holdqueueremove [AirportICAO]",
-    usage: "Removes the aircraft that just landed from the queue of an airport.",
+    description: "Removes the aircraft that just landed from the queue of an airport.",
     moderation: false,
     atc: true
 }
