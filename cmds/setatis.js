@@ -122,7 +122,7 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
 
 module.exports.help = {
     name: "setatis",
-    usage: "Sets the ATIS at the specified airport with the parameters. To see the parameters, just type in" + prefix +"setatis and check the usage section.",
+    description: "Sets the ATIS at the specified airport with the parameters. To see the parameters, just type in" + prefix +"setatis and check the usage section.",
     moderation: false,
     atc: true
 }
