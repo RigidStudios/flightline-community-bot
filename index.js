@@ -6,6 +6,7 @@ const { Client } = require('pg')
 const fs = require('fs')
 const bot = new Discord.Client({ disableEveryone: true });
 bot.commands = new Discord.Collection();
+module.exports.commands = bot.commands
 const postgres = new Client({
     user: 'flightline',
     host: 'localhost',

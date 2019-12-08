@@ -19,6 +19,10 @@ module.exports.run = async (bot, postgres, message, args) => {
         return embed
     }  
 
+    let role = message.member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+    
+    if(!message.member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to view this help section.")
+    
     if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
     message.channel.send(embedMsgATC());
 }
