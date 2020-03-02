@@ -84,32 +84,23 @@ bot.on("message", async message => {
 
 // -------------------------------------------------------------
 
-	if(command === `${prefix}setatis`){
+    if(command === `${prefix}setatis`){
 
         let AirChose = setAtis.airportSelected
 
         if(AirChose === "JTPH"){
-            newAtisJTPH = setAtis.atisJTPHRawObj
-            newAtisEmbedJTPH = setAtis.atisJTPH
-
-            module.exports.atisJTPHRawObj = newAtisJTPH
-            module.exports.atisJTPH = newAtisEmbedJTPH
+            module.exports.atisJTPHRawObj = setAtis.atisJTPHRawObj
+            module.exports.atisJTPH = setAtis.atisJTPH
         }
         
         if(AirChose === "JSLL"){
-            newAtisJSLL = setAtis.atisJSLLRawObj
-            newAtisEmbedJSLL = setAtis.atisJSLL
-
-            module.exports.atisJSLLRawObj = newAtisJSLL
-            module.exports.atisJSLL = newAtisEmbedJSLL
+            module.exports.atisJSLLRawObj = setAtis.atisJSLLRawObj
+            module.exports.atisJSLL = setAtis.atisJSLL
         }
 
         if(AirChose === "JCO4"){
-            newAtisJCO4 = setAtis.atisJCO4RawObj
-            newAtisEmbedJCO4 = setAtis.atisJCO4
-
-            module.exports.atisJCO4RawObj = newAtisJCO4
-            module.exports.atisJCO4 = newAtisEmbedJCO4
+            module.exports.atisJCO4RawObj = setAtis.atisJCO4RawObj
+            module.exports.atisJCO4 = setAtis.atisJCO4
         }
     }
 
@@ -119,34 +110,22 @@ bot.on("message", async message => {
 
        if(AirChose === "JTPH"){
             if(!setAtis.atisJTPHRawObj) return message.channel.send("There is no ATIS set for JTPH so the bot cannot just change the wind of this Airport!")
-            
-            newAtis = windFile.atisJTPHRawObj
-            newAtisEmbed = windFile.atisJTPH
-
-            module.exports.atisJTPHRawObj = newAtis
-            module.exports.atisJTPH = newAtisEmbed
+            module.exports.atisJTPHRawObj = windFile.atisJTPHRawObj
+            module.exports.atisJTPH = windFile.atisJTPH
        }
 
        if(AirChose === "JSLL"){
             if(!setAtis.atisJSLLRawObj) return message.channel.send("There is no ATIS set for JSLL so the bot cannot just change the wind of this Airport!")
-            
-            newAtis = windFile.atisJSLLRawObj
-            newAtisEmbed = windFile.atisJSLL
-
-            module.exports.atisJSLLRawObj = newAtis
-            module.exports.atisJSLL = newAtisEmbed
+            module.exports.atisJSLLRawObj = windFile.atisJSLLRawObj
+            module.exports.atisJSLL = indFile.atisJSLL
         }
 
         if(AirChose === "JCO4"){
             if(!setAtis.atisJCO4RawObj) return message.channel.send("There is no ATIS set for JTPH so the bot cannot just change the wind of this Airport!")
-            
-            newAtis = windFile.atisJCO4HRawObj
-            newAtisEmbed = windFile.atisJCO4
-
-            module.exports.atisJCO4RawObj = newAtis
-            module.exports.atisJCO4 = newAtisEmbed
+            module.exports.atisJCO4RawObj = windFile.atisJCO4HRawObj
+            module.exports.atisJCO4 = windFile.atisJCO4
        }
-   } 
+   }
 });
 
 bot.login(botSettings.token);
