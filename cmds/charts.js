@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
+const password = require('./JSONS/password.json');
 
 function embedMsgChart() {
     return new Discord.RichEmbed()
         .setTimestamp(Date.now())
         .setDescription("This is the map for all airports!")
         .addField("Below find the link for the Aerodrome map of all airports!"," https://flightlinecharts.weebly.com/charts.html")
-	.addField("Password:", "vfrflightrules")
+	.addField("Password:", password.webPassword)
 	.setFooter("This link redirects you straight to the password prompt.")
         .setColor("#00FF00");
 }

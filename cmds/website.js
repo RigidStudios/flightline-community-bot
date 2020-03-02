@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
+const password = require('./JSONS/password.json');
 
 function embedMsgWebsite(){
     return new Discord.RichEmbed()
     .setTimestamp(Date.now())
     .setTitle("Website of the Unofficial Flightline Community!")
     .addField("Link to website:", "https://flightlinecharts.weebly.com/")
-    .addField("Password for charts:", "vfrflightrules")
+    .addField("Password for charts:", password.webPassword)
     .setFooter("NOTE: The password is changed regularly!")
     .setColor("#00FF00");
 }
