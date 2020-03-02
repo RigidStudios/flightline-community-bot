@@ -2,24 +2,42 @@ const Discord = require('discord.js');
 const botSettings = require('../botSettings.json');
 const prefix = botSettings.prefix;
 
-function embedMsgATIS(AirportReq, Information, Time, ActRun, Wind, Cloud, Visibility, Remarks, DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq){
+class Atis {
+    constructor(Airport, Information, ActRun, Wind, Cloud, Vis, Remarks, Delivery, Ground, Tower, Dir, Center){
+        this.Airport = Airport;
+        this.Information = Information;
+        this.ActRun = ActRun;
+        this.Wind = Wind;
+        this.Cloud = Cloud;
+        this.Visibility = Vis;
+        this.Remarks = Remarks;
+        this.Delivery = Delivery;
+        this.Ground = Ground;
+        this.Tower = Tower;
+        this.Director = Dir;
+        this.Center = Center;
+    }
+    
+    embedMsgATIS(){
     return new Discord.RichEmbed()
-    .setTitle(`ATIS for ${AirportReq}`)
-    .addField("Information for Airport:", `${AirportReq}`)
-    .addField("Information:", `${Information}`)
-    .addField("Time:", `${Time}`)
-    .addField("Active Runways:", `${ActRun}`)
-    .addField("Wind:", `${Wind}`)
-    .addField("Cloud:", `${Cloud}`)
-    .addField("Visibility:", `${Visibility}`)
-    .addField("Remarks", `${Remarks}`)
-    .addField("Delivery Frequency:", `${DeliveryFreq}`)
-    .addField("Ground Frequency:", `${GroundFreq}`)
-    .addField("Tower Frequency:", `${TowerFreq}`)
-    .addField("Director Frequency:", `${DirectorFreq}`)
-    .addField("Center Frequency:", `${CenterFreq}`)
+    .setTitle(`ATIS for ${this.Airport}`)
+    .addField("Information for Airport:", `${this.Airport}`)
+    .addField("Information:", `${this.Information}`)
+    .addField("Time:", `${new Date()}`)
+    .addField("Active Runways:", `${this.ActRun}`)
+    .addField("Wind:", `${this.Wind}`)
+    .addField("Cloud:", `${this.Cloud}`)
+    .addField("Visibility:", `${this.Visibility}`)
+    .addField("Remarks", `${this.Remarks}`)
+    .addField("Delivery Frequency:", `${this.Delivery}`)
+    .addField("Ground Frequency:", `${this.Ground}`)
+    .addField("Tower Frequency:", `${this.Tower}`)
+    .addField("Director Frequency:", `${this.Director}`)
+    .addField("Center Frequency:", `${this.Center}`)
     .setFooter("ATIS is constantly updated, beware of sudden weather changes!")
     .setColor("#00BFFF");
+    }
+    
 }
 
 function embedMsgCommandHintSetATIS(){
@@ -46,38 +64,13 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
             let messageArray = message.content.split(",");
             let sArgs = messageArray.slice(0);
             let firArg = sArgs[0].split(" ");
-            let firstArg = firArg[1]
+            let firstArg = firArg[1];
 
-            let TimeIn = new Date().toISOString();
-            let TimeInProgress = TimeIn.split("T")
-            let TIP = TimeInProgress.splice(1, 1)
-            let FinalZulu = TIP.toString().split(".")
-            let Fzulu = FinalZulu[0]
-            
-            let AirportReqIn = firstArg;
-            let InformationIn = sArgs[1];
-            let ActRunIn = sArgs[2];
-            let WindIn = sArgs[3];
-            let CloudIn = sArgs[4];
-            let VisibilityIn = sArgs[5];
-            let RemarksIn = sArgs[6];
-            
             if(sArgs.length < 7) return message.channel.send(embedMsgCommandHintSetATIS());
+            
+            module.exports.airportSelected = firstArg;
 
-            definedATISvarJTPH = {
-                AirportReq: AirportReqIn,
-                Information: InformationIn,
-                Time: `${Fzulu}Z`,
-                ActRun: ActRunIn,
-                Wind: WindIn,
-                Cloud: CloudIn,
-                Visibility: VisibilityIn,
-                Remarks: RemarksIn,
-            }            
-
-            module.exports.airportSelected = AirportReqIn
-
-            if(AirportReqIn === "JTPH"){
+            if(firstArg === "JTPH"){
 
                 let DeliveryFreq = "118.400MHz";
                 let GroundFreq = "120.750MHz";
@@ -85,10 +78,10 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 let DirectorFreq = "126.825MHz";
                 let CenterFreq = "132.600MHz";
 
-                let finishedATISJTPH =  embedMsgATIS(definedATISvarJTPH.AirportReq, definedATISvarJTPH.Information, definedATISvarJTPH.Time, definedATISvarJTPH.ActRun, definedATISvarJTPH.Wind, definedATISvarJTPH.Cloud, definedATISvarJTPH.Visibility, definedATISvarJTPH.Remarks, DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);  
-                message.channel.send(finishedATISJTPH);
-                module.exports.atisJTPH = finishedATISJTPH
-                module.exports.atisJTPHRawObj = definedATISvarJTPH
+                let finishedATISJTPH = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);  
+                message.channel.send(finishedATISJTPH.embedMsgATIS());
+                module.exports.atisJTPH = finishedATISJTPH.embedMsgATIS();
+                module.exports.atisJTPHRawObj = finishedATISJTPH;
             }
            
             else if(AirportReqIn === "JSLL"){
@@ -99,10 +92,10 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 let DirectorFreq = "130.500MHz";
                 let CenterFreq = "131.775MHz";
 
-                let finishedATISJSLL =  embedMsgATIS(definedATISvarJTPH.AirportReq, definedATISvarJTPH.Information, definedATISvarJTPH.Time, definedATISvarJTPH.ActRun, definedATISvarJTPH.Wind, definedATISvarJTPH.Cloud, definedATISvarJTPH.Visibility, definedATISvarJTPH.Remarks, DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);
-                message.channel.send(finishedATISJSLL);
-                module.exports.atisJSLL = finishedATISJSLL
-                module.exports.atisJSLLRawObj = definedATISvarJTPH
+                let finishedATISJSLL = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);  
+                message.channel.send(finishedATISJSLL.embedMsgATIS());
+                module.exports.atisJSLL = finishedATISJSLL.embedMsgATIS();
+                module.exports.atisJSLLRawObj = finishedATISJSLL;
             }
 
             else if(AirportReqIn === "JCO4"){
@@ -113,10 +106,10 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 let DirectorFreq = "None";
                 let CenterFreq = "None";
 
-                let finishedATISJCO4 =  embedMsgATIS(definedATISvarJTPH.AirportReq, definedATISvarJTPH.Information, definedATISvarJTPH.Time, definedATISvarJTPH.ActRun, definedATISvarJTPH.Wind, definedATISvarJTPH.Cloud, definedATISvarJTPH.Visibility, definedATISvarJTPH.Remarks, DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);
-                message.channel.send(finishedATISJCO4);
-                module.exports.atisJCO4 = finishedATISJCO4
-                module.exports.atisJCO4RawObj = definedATISvarJTPH
+                let finishedATISJCO4 =  new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);
+                message.channel.send(finishedATISJCO4.embedMsgATIS());
+                module.exports.atisJCO4 = finishedATISJCO4.embedMsgATIS();
+                module.exports.atisJCO4RawObj = finishedATISJCO4;
             }
 }
 
