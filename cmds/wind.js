@@ -39,7 +39,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 }
 
 module.exports.help = {
-    name: "wind [AirportICAO] [XXX @ XX]",
+    name: "wind",
+    format: "wind [AirportICAO] [XXX @ XX]",
     description: "Updates the wind for the ATIS at the specified airport. This command can be used by anybody!",
     moderation: false,
     atc: false
