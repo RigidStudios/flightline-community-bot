@@ -14,7 +14,7 @@ module.exports.run = async (bot, postgres, message, args) => {
                 else if(el.help.atc === true) { return; }
                 else if(el.help.ownerOnly === true) { return; }
                 else if(el.help.moderation === false){
-                    embed.addField(prefix + el.help.name, el.help.description)
+                    embed.addField(prefix + el.help.format, el.help.description)
                 }
             });
         
