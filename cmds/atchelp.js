@@ -29,6 +29,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "atchelp",
+    format: "atchelp",
     description: "Displays the ATC help section.",
     moderation: false,
     atc: true
