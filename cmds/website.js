@@ -6,7 +6,6 @@ function embedMsgWebsite(){
     .setTimestamp(Date.now())
     .setTitle("Website of the Unofficial Flightline Community!")
     .addField("Link to website:", "https://flightlinecharts.weebly.com/")
-    .addField("Password for charts:", password.webPassword)
     .setFooter("NOTE: The password is changed regularly!")
     .setColor("#00FF00");
 }
@@ -20,6 +19,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "website",
+    format: "website",
     description: "Displays the link to our website!",
     moderation: false,
     atc: false
