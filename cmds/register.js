@@ -30,7 +30,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "register",
-    format: "register",
+    format: "register [username] [password]",
     description: "Registers a new ATC account.",
     moderation: false,
     atc: false,
