@@ -32,6 +32,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "staffhelp",
+    format: "staffhelp",
     usage: "Displays help section for staff",
     moderation: true,
     atc: false
