@@ -21,6 +21,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
 module.exports.help = {
     name: "ICAOS",
+    format: "ICAOS",
     description: "Displays all of the ICAOS of all the aiports in the game.",
     moderation: false,
     atc: false
