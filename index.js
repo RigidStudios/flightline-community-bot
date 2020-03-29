@@ -2,6 +2,7 @@ const botSettings = require("./botSettings.json");
 const Discord = require("discord.js");
 const setAtis = require('./cmds/setatis.js');
 const windFile = require('./cmds/wind.js');
+const nicknameFile = require('./cmds/JSONS/nickname.json');
 const { Client } = require('pg')
 const fs = require('fs')
 const bot = new Discord.Client({ disableEveryone: true });
@@ -47,10 +48,6 @@ postgres.connect(err => {
 });
 
 const prefix = botSettings.prefix
-
-// bot.on('guildMemberAdd', async member => {
-//    member.addRoles(['594441271871799296', '593830876035416164', '594440125359063050'])
-// });
 
 bot.on("ready", async () => {
     try {
