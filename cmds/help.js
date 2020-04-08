@@ -7,7 +7,7 @@ const index = require("../index.js");
 module.exports.run = async (bot, postgres, message, args) => {
         
     function embedMsgHelp(){
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
         embed.addField("***Note:***", "Anything that has [something], takes a parameter.")
             index.commands.forEach(el => {
                 if(el.help.moderation === true) { return; }

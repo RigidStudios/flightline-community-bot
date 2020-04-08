@@ -8,7 +8,7 @@ function embedMsgQueue(airportQueue){
     
     if(airportQueue.length == 0)return "There is no planes in a holding pattern!"
     
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
     
     airportQueue.forEach(function(item, index) {
         embed.addField(`Number ${index + 1} for landing:`, item);
@@ -27,21 +27,23 @@ module.exports.run = async (bot, postgres, message, args) => {
     if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
 
         let guildID = "593830690777333770";
-        let guild = bot.guilds.get(guildID);
+        let guild = bot.guilds.cache.get(guildID);
         let member = message.guild.member(message.author);
-        let role = member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+        let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
         
-        if(!member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to add to Holding Pattern Queue!");
+        if(!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to add to Holding Pattern Queue!");
 
         let messageArray = message.content.split(",");
         let sArgs = messageArray.slice(0);
         let firArg = sArgs[0].split(" ");
-        let firstArg = firArg[1]
+        let firstArg = firArg[1];
+
+        console.log(args.slice(1).join(" "))
         
         if(!firstArg) return message.channel.send("No airport specified!")
-        if(!sArgs[1]) return message.channel.send("No aircraft specified!")        
+        if(!args.slice(1).join(" ")) return message.channel.send("No aircraft specified!")        
 
-        let Aircraft = sArgs[1];
+        let Aircraft = args.slice(1).join(" ");
         
         if(firstArg === "JTPH"){
             queueJTPH.push(Aircraft);

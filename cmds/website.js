@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const password = require('./JSONS/password.json');
 
 function embedMsgWebsite(){
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
     .setTimestamp(Date.now())
     .setTitle("Website of the Unofficial Flightline Community!")
     .addField("Link to website:", "https://flightlinecharts.weebly.com/")

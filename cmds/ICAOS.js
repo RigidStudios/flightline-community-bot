@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 function embedMsgICAO(){
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
         .setTimestamp(Date.now())
         .setDescription("All Airports in ICAOs in Flightline!")
         .addField("Airports:", "-------------------------------------------------")

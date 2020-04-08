@@ -19,7 +19,7 @@ class Atis {
     }
     
     embedMsgATIS(){
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
     .setTitle(`ATIS for ${this.Airport}`)
     .addField("Information for Airport:", `${this.Airport}`)
     .addField("Information:", `${this.Information}`)
@@ -41,7 +41,7 @@ class Atis {
 }
 
 function embedMsgCommandHintSetATIS(){
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
     .setDescription(`Usage for ${prefix}setatis:`)
     .addField("/setatis Airport,Information,ActiveRunways,Wind,Cloud,Visibility,Remarks", "Make sure that there is NO SPACES BETWEEN LETTER/NUMBERS AND COMMAS(,). The only Spaces that can be used ARE IN BETWEEN WORDS AND SEPERATING /setatis FROM THE AIRPORT.")
     .addField("If there is any errors, please contact JusSupra#0962.","--------------------------------------------")
@@ -55,11 +55,11 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
     if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
 
         let guildID = "593830690777333770";
-        let guild = bot.guilds.get(guildID);
+        let guild = bot.guilds.cache.get(guildID);
         let member = message.guild.member(message.author);
-        let role = member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+        let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
         
-        if(!member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to set ATIS'es");
+        if(!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to set ATIS'es");
 
             let messageArray = message.content.split(",");
             let sArgs = messageArray.slice(0);
