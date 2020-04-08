@@ -2,18 +2,18 @@ const Discord = require('discord.js');
 const password = require('./JSONS/password.json');
 
 function embedMsgChart() {
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
         .setTimestamp(Date.now())
         .setDescription("This is the map for all airports!")
-        .addField("Below find the link for the Aerodrome map of all airports!"," https://flightlinecharts.weebly.com/charts.html")
-	.addField("Password:", password.webPassword)
-	.setFooter("This link redirects you straight to the password prompt.")
+        .addField("Below find the link for the Aerodrome map of all airports!", " https://flightlinecharts.weebly.com/charts.html")
+        .addField("Password:", password.webPassword)
+        .setFooter("This link redirects you straight to the password prompt.")
         .setColor("#00FF00");
 }
 
 module.exports.run = async (bot, postgres, message, args) => {
 
-    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
+    if (message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
     message.channel.send(embedMsgChart());
 
 }

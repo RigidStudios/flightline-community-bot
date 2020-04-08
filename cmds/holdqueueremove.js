@@ -7,11 +7,11 @@ module.exports.run = async (bot, postgres, message, args) => {
         if(!args[0]) return message.channel.send("No airport specified!")
 
         let guildID = "593830690777333770";
-        let guild = bot.guilds.get(guildID);
+        let guild = bot.guilds.cache.get(guildID);
         let member = message.guild.member(message.author);
-        let role = member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+        let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
         
-        if(!member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to remove from the Holding Pattern Queue.");
+        if(!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to remove from the Holding Pattern Queue.");
         
         if(args[0] === "JTPH"){
             queues.queueJTPH.shift();

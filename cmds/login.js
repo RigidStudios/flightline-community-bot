@@ -5,16 +5,15 @@ const nicknameFile = require('./JSONS/nickname.json')
 module.exports.run = async (bot, postgres, message, args) => {
 
     let guildID = "593830690777333770";
-    let guild = bot.guilds.get(guildID);
+    let guild = bot.guilds.cache.get(guildID);
     let member = message.guild.member(message.author);
-    let role = member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+    let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     let accAirports = ["JTPH", "JSLL", "JC04"]
 
-    if (!member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to login as ATC!");
+    if (!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to login as ATC!");
     if (!args[0]) return message.channel.send("No username provided!");
     if (!args[1]) return message.channel.send("No airport provided!");
     if (!args[2]) return message.channel.send("No position provided!");
-    if (args[1] != accAirports.some(accAirports[0] || accAirports[1] || accAirports[2])) return message.channel.send("Invalid airport!")
 
     nicknameFile[message.author.id] = {
         username: args[0],
@@ -31,8 +30,6 @@ module.exports.run = async (bot, postgres, message, args) => {
     fs.writeFileSync('./cmds/JSONS/nickname.json', jsonString, err => {
         if (err) {
             console.log('Error writing to nickname.json', err)
-        } else {
-            console.log('Successfully wrote to file nickname.json')
         }
     })
 
@@ -53,7 +50,10 @@ module.exports.run = async (bot, postgres, message, args) => {
             if (collected.get(channel.channel.lastMessageID).content === `${res.rows[0].password}`) {
                 message.author.send(`Sucessfully logged in as ${nicknameFile[message.author.id].username}!`)
 
-                member.setNickname(`${nicknameFile[message.author.id].AirportServed} ${nicknameFile[message.author.id].PositionServed} - ${nicknameFile[message.author.id].originNick}`)
+                if (member.manageable) {
+                    member.setNickname(`${nicknameFile[message.author.id].AirportServed} ${nicknameFile[message.author.id].PositionServed} - ${nicknameFile[message.author.id].originNick}`)
+                }
+
                 postgres.query(`INSERT INTO login_logs(staff_user_id, username, airport_served, position_served, time_start, status) VALUES (${message.author.id}, '${nicknameFile[message.author.id].username}', '${nicknameFile[message.author.id].AirportServed}', '${nicknameFile[message.author.id].PositionServed}', '${nicknameFile[message.author.id].TimeStart}', 'ON_DUTY');`, (e, r) => {
                     console.log(e)
                     if (e) return message.author.send("ERROR: Error while entering data into Database. If this continues, contact JusSupra#6561.")

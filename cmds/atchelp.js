@@ -5,7 +5,7 @@ const prefix = require("../botSettings.json").prefix
 module.exports.run = async (bot, postgres, message, args) => {
 
     function embedMsgATC(){
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
         embed.addField("***Note:***", "Anything that has [something], takes a parameter.")
             index.commands.forEach(el => {
                 if(el.help.moderation === true) { return; }
@@ -19,9 +19,9 @@ module.exports.run = async (bot, postgres, message, args) => {
         return embed
     }  
 
-    let role = message.member.guild.roles.find(r => r.name === "----------------- ATC Staff -----------------");
+    let role = message.member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     
-    if(!message.member.roles.has(role.id)) return message.channel.send("Only ATC's are allowed to view this help section.")
+    if(!message.member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to view this help section.")
     
     if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
     message.channel.send(embedMsgATC());
