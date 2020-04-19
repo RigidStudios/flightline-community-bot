@@ -71,7 +71,7 @@ module.exports.run = async (bot, postgres, message, args) => {
             module.exports.logDetails = nicknameFile[message.author.id]
 
             if (member.manageable) {
-                member.setNickname(`${nicknameFile[message.author.id].AirportServed} ${nicknameFile[message.author.id].PositionServed} - ${nicknameFile[message.author.id].originNick}`)
+                member.setNickname(`${nicknameFile[message.author.id].airport} ${nicknameFile[message.author.id].position} - ${nicknameFile[message.author.id].originNick}`)
             }
 
             postgres.query(`INSERT INTO login_logs(staff_user_id, username, airport_served, position_served, time_start, status) VALUES (${message.author.id}, '${nicknameFile[message.author.id].username}', '${nicknameFile[message.author.id].airport}', '${nicknameFile[message.author.id].position}', '${nicknameFile[message.author.id].timeStart}', 'ON_DUTY');`, (e, r) => {
