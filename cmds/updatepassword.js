@@ -3,6 +3,9 @@ const password = require('./JSONS/password.json');
 const fs = require('fs');
 
 module.exports.run = async (bot, postgres, message, args) => {
+    
+    return message.channel.send("This command is currently unavailable.")
+
     if (!message.member.roles.cache.find(r => r.name === "WebsitePass")) return message.channel.send("You cannot change the website password!")
     if (message.content == password.webPassword) return message.channel.send("This password is already in use!")
     let newPassObj = {

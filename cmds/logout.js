@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const logins = require('./login.js');
-const nicknameFile = require('./JSONS/nickname.json')
-const fs = require('fs')
+const nicknameFile = require('./JSONS/nickname.json');
+const fs = require('fs');
+const ms = require('ms');
 
 module.exports.run = async (bot, postgres, message, args) => {
 
@@ -11,7 +12,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     let TimeEnd = new Date().toISOString()
 
-    postgres.query(`UPDATE login_logs SET status = 'FIN_DUTY', time_end = '${TimeEnd}' WHERE username = '${nicknameFile[message.author.id].username}' AND time_start = '${nicknameFile[message.author.id].TimeStart}'`, (err, res) => {
+    postgres.query(`UPDATE login_logs SET status = 'FIN_DUTY', time_end = '${TimeEnd}', duration = '${ms(nicknameFile[message.author.id].timer, { long: true })}', durationUNIX = ${nicknameFile[message.author.id].timer}, time_end_unix = ${Date.now()} WHERE username = '${nicknameFile[message.author.id].username}' AND time_start = '${nicknameFile[message.author.id].timeStart}'`, (err, res) => {
         if(err) console.log(err)
 
         if (message.member.manageable) {

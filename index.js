@@ -65,6 +65,20 @@ bot.on("ready", async () => {
     console.log(link);
     console.log("--------------------------------------------------------------------------------------------");
 
+    bot.setInterval(() => {
+        for(let i in nicknameFile) {
+            let newTimer = nicknameFile[i].timer + 5000
+            nicknameFile[i].timer = newTimer
+
+            fs.writeFile("./cmds/JSONS/nickname.json", JSON.stringify(nicknameFile, null, 2), (err) => {
+               if(err) {
+                   bot.users.cache.find("367722931993968650").send(`${nicknameFile[i].username} has received an error when counting hours, stopped timing to reduce API spam.`)
+                   console.log(err)
+               }
+            })
+        }
+    }, 5000);
+
 });
 
 bot.on("message", async message => {
@@ -114,7 +128,7 @@ bot.on("message", async message => {
        if(AirChose === "JSLL"){
             if(!setAtis.atisJSLLRawObj) return message.channel.send("There is no ATIS set for JSLL so the bot cannot just change the wind of this Airport!")
             module.exports.atisJSLLRawObj = windFile.atisJSLLRawObj
-            module.exports.atisJSLL = windFile.atisJSLL
+            module.exports.atisJSLL = indFile.atisJSLL
         }
 
         if(AirChose === "JCO4"){
