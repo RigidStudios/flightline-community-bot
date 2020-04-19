@@ -23,7 +23,7 @@ module.exports.run = async (bot, postgres, message, args) => {
         let atis = setAtis.atisJSLLRawObj;
         if(!atis) return
         atis.Wind = wind;
-        message.channel.send(atis.embedMsgATIS());
+        message.channel.send(finishedATISJSLL.embedMsgATIS());
         module.exports.atisJSLLRawObj = atis
         module.exports.atisJSLL = atis.embedMsgATIS();
     }
@@ -32,7 +32,7 @@ module.exports.run = async (bot, postgres, message, args) => {
         let atis = setAtis.atisJCO4RawObj;
         if(!atis) return
         atis.Wind = wind;
-        message.channel.send(atis.embedMsgATIS());
+        message.channel.send(finishedATISJCO4.embedMsgATIS());
         module.exports.atisJCO4RawObj = atis;
         module.exports.atisJCO4 = atis.embedMsgATIS();
     }

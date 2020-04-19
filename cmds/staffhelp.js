@@ -12,7 +12,7 @@ function embedStaffHelp(){
             else if(el.help.ownerOnly === true) { return; }
             else if(el.help.name === "staffhelp") { return; } 
             else if(el.help.moderation === true){
-                embed.addField(prefix + el.help.name, el.help.usage)
+                embed.addField(prefix + el.help.name, el.help.description)
             }
         });
         
@@ -22,7 +22,7 @@ function embedStaffHelp(){
 module.exports.run = async (bot, postgres, message, args) => {
 
     let member = message.guild.member(message.author);
-    let role = member.guild.roles.cache.find(r => r.name === "-------------- SERVER STAFF --------------");
+    let role = member.guild.roles.cache.find(r => r.name === "-------------- SERVER STAFF --------------" || r.name === "-------------- SENIOR STAFF --------------");
 
     if(!member.roles.cache.has(role.id)) return message.channel.send("Only Server Staff have permission to execute this command!");
 
