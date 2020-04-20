@@ -84,7 +84,7 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 module.exports.atisJTPHRawObj = finishedATISJTPH;
             }
            
-            else if(AirportReqIn === "JSLL"){
+            else if(firstArg === "JSLL"){
 
                 let DeliveryFreq = "122.225MHz";
                 let GroundFreq = "119.600MHz";
@@ -98,7 +98,7 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 module.exports.atisJSLLRawObj = finishedATISJSLL;
             }
 
-            else if(AirportReqIn === "JCO4"){
+            else if(firstArg === "JCO4"){
 
                 let DeliveryFreq = "None";
                 let GroundFreq = "None";
