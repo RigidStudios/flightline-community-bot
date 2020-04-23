@@ -1,4 +1,4 @@
-# Flightline Community Bot                     
+# Flightline Community Bot                  <img align="right" width="150" height="150" src="/images/icon.png">
 
 [![Discord Members Online](https://discordapp.com/api/guilds/593830690777333770/embed.png)](https://discord.gg/XDsWaZq)
 
