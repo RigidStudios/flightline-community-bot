@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const password = require('./JSONS/password.json');
 
 function embedMsgWebsite(){
     return new Discord.MessageEmbed()
