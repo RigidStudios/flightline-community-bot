@@ -6,7 +6,6 @@ function embedMsgWebsite(){
     .setTimestamp(Date.now())
     .setTitle("Website of the Unofficial Flightline Community!")
     .addField("Link to website:", "https://flightlinecharts.weebly.com/")
-    .setFooter("NOTE: The password is changed regularly!")
     .setColor("#00FF00");
 }
 
