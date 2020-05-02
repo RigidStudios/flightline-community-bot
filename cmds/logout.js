@@ -31,7 +31,7 @@ module.exports.run = async (bot, postgres, message, args) => {
                 console.error(e);
             }
 
-            let tHours = r.rows[0].sum;
+            let tHours = r.rows[1].sum
 
             if (tHours === null) {
                 tHours = 0;
@@ -39,8 +39,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 
             let info = {
                 username: username,
-                totalHours: ms(parseInt(tHours), { long: true }),
-                currentSessionLength: ms(parseInt(r.rows[1].sum))
+                currentSessionLength: ms(parseInt(r.rows[0].sum), { long: true }),
+                totalHours: ms(parseInt(tHours))
             }
 
             message.author.send(`Current Statistics for ATC: ${username} \n \n Total Service Time: ${info.totalHours} \n Session Duration: ${info.currentSessionLength}`)
