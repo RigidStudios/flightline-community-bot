@@ -128,7 +128,7 @@ bot.on("message", async message => {
        if(AirChose === "JSLL"){
             if(!setAtis.atisJSLLRawObj) return message.channel.send("There is no ATIS set for JSLL so the bot cannot just change the wind of this Airport!")
             module.exports.atisJSLLRawObj = windFile.atisJSLLRawObj
-            module.exports.atisJSLL = indFile.atisJSLL
+            module.exports.atisJSLL = windFile.atisJSLL
         }
 
         if(AirChose === "JCO4"){
