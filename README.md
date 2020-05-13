@@ -22,10 +22,16 @@ This code, as of v3.3.0 includes:
 The setup is quite easy to do.
 First make sure you have [Node.js](https://nodejs.org/en/) (v12.X.X+) installed, which should come with the package manager "npm" by default.
 
-Alongside that, make sure that you have a PostgreSQL server up and running. This repo will include a database setup file that will enable you to replicate the exact database structure as the main bot is using. 
+Alongside that, make sure that you have a [PostgreSQL server](https://www.postgresql.org/) up and running. This repo will include a database setup file that will enable you to replicate the exact database structure as the main bot is using.
 
-_Placeholder for command execution_
-
+1: Firstly, make sure that you have an empty database that you can use for the bot. Skip this step if already complete.
+2: Next, if you are on Windows:
+   a) Open your command line and navigate to the directory where psql is located.
+   b) Execute the following command: `psql -d newdbname -f \location\of\flightline-community-bot-master\dbsetup.sql`
+   
+   If you are on a linux based OS, simply run the above command.
+   
+Right after the Postgres Server is setup, install all of the node dependancies that are required for the bot to run.
 Simply execute the following command inside of the project folder in your command line:
 
 ```bash
