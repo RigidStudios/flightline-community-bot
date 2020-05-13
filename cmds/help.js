@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
-const botSettings = require('../botSettings.json')
-const prefix = botSettings.prefix
+const config = require('../config.json')
+const prefix = config.botConfig.prefix
 const fs = require("fs")
 const index = require("../index.js");
 
@@ -22,8 +22,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     }    
 
-    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
-    message.channel.send(embedMsgHelp());
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+    message.channel.send(embedMsgHelp()).catch(console.error);
 
 }
 

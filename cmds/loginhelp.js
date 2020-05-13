@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const botSettings = require('../botSettings.json')
-const prefix = botSettings.prefix
+const config = require('../config.json')
+const prefix = config.botConfig.prefix
 
 function loginHelp() {
     return new Discord.MessageEmbed()
@@ -21,8 +21,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     if (!member.roles.cache.has(role.id)) return message.channel.send("You do not have permission to execute this command!");
 
-    if (message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
-    message.channel.send(loginHelp());
+    if (message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+    message.channel.send(loginHelp()).catch(console.error);
 }
 
 module.exports.help = {

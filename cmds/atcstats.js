@@ -3,6 +3,8 @@ const ms = require('ms');
 
 module.exports.run = async (bot, postgres, message, args) => {
 
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+
     if (!message.member.roles.cache.find(r => r.name === "Main ATC Administrator" || r.name === "ATC Administrator")) return message.channel.send("Only ATC Administrators are allowed to execute this command.");
 
     function statEmbed(username, discord_id, tHours, latestLogout) {

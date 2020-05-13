@@ -13,9 +13,9 @@ function embedMsgICAO(){
 
 module.exports.run = async (bot, postgres, message, args) => {
 
-    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
-    if(args[0] === "JTPH" || "JSLL" || "JCO4") return message.channel.send(embedMsgICAO());
-    message.channel.send(embedMsgICAO());
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+    if(args[0] === "JTPH" || "JSLL" || "JCO4") return message.channel.send(embedMsgICAO()).catch(console.error);
+    message.channel.send(embedMsgICAO()).catch(console.error);
 
 }
 

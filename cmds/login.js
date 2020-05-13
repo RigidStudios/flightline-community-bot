@@ -5,6 +5,8 @@ const nicknameFile = require('./JSONS/nickname.json')
 
 module.exports.run = async (bot, postgres, message, args) => {
 
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+
     let guildID = "593830690777333770";
     let guild = bot.guilds.cache.get(guildID);
     let member = message.guild.member(message.author);
@@ -41,7 +43,7 @@ module.exports.run = async (bot, postgres, message, args) => {
         message.channel.send("Go to DM's to enter your password!")
 
         const filter = m => m.content
-        const channel = await message.author.send(`Enter password for ${username}:`)
+        const channel = await message.author.send(`Enter password for ${username}:`).catch(console.error);
         const collector = channel.channel.createMessageCollector(filter, { max: 1 });
 
         collector.on('collect', m => {
@@ -57,7 +59,7 @@ module.exports.run = async (bot, postgres, message, args) => {
             })
 
         if (password) {
-            message.author.send(`Sucessfully logged in as ${username}!`)
+            message.author.send(`Sucessfully logged in as ${username}!`);
 
             nicknameFile[message.author.id] = {
                 username: username,
@@ -71,7 +73,7 @@ module.exports.run = async (bot, postgres, message, args) => {
             module.exports.logDetails = nicknameFile[message.author.id]
 
             if (member.manageable) {
-                member.setNickname(`${nicknameFile[message.author.id].airport} ${nicknameFile[message.author.id].position} - ${nicknameFile[message.author.id].originNick}`)
+                member.setNickname(`${nicknameFile[message.author.id].AirportServed} ${nicknameFile[message.author.id].PositionServed} - ${nicknameFile[message.author.id].originNick}`)
             }
 
             postgres.query(`INSERT INTO login_logs(staff_user_id, username, airport_served, position_served, time_start, status) VALUES (${message.author.id}, '${nicknameFile[message.author.id].username}', '${nicknameFile[message.author.id].airport}', '${nicknameFile[message.author.id].position}', '${nicknameFile[message.author.id].timeStart}', 'ON_DUTY');`, (e, r) => {

@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports.run = async (bot, postgres, message, args) => {
 
     if(!message.member.roles.cache.some(r => ['692447850826694758', '594443623324581938'].includes(r.id))) return message.channel.send("You do not have permission to give the starter roles!")
