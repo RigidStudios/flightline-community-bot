@@ -25,11 +25,8 @@ First make sure you have [Node.js](https://nodejs.org/en/) (v12.X.X+) installed,
 Alongside that, make sure that you have a [PostgreSQL server](https://www.postgresql.org/) up and running. This repo will include a database setup file that will enable you to replicate the exact database structure as the main bot is using.
 
 1: Firstly, make sure that you have an empty database that you can use for the bot. Skip this step if already complete.
-2: Next, if you are on Windows:
-   a) Open your command line and navigate to the directory where psql is located.
-   b) Execute the following command: `psql -d newdbname -f \location\of\flightline-community-bot-master\dbsetup.sql`
-   
-   If you are on a linux based OS, simply run the above command.
+2: Next, if you are on Windows, open your command line and navigate to the directory where psql is located and execute the following command: `psql -d newdbname -f \location\of\flightline-community-bot-master\dbsetup.sql`
+If you are on a linux based OS, simply run the above command.
    
 Right after the Postgres Server is setup, install all of the node dependancies that are required for the bot to run.
 Simply execute the following command inside of the project folder in your command line:
@@ -39,6 +36,8 @@ npm install
 ```
 
 This will install all of the dependancies that are needed in order for the bot to work. The full list can be found in the package.json file. **The bot should be running on discord.js v12+ and Node.js v12.X.X+**
+
+The last step is to fill in the information in the config.json.
 
 If everything was done correctly and you execute:
 ```bash
@@ -67,6 +66,7 @@ Below find the invite link should it be needed for the bot to be invited to anot
 [Link Generated]
 --------------------------------------------------------------------------------------------
 ```
+
 
 ## Support
 
