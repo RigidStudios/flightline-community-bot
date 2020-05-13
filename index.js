@@ -1,20 +1,22 @@
-const botSettings = require("./botSettings.json");
+const config = require("./config.json");
 const Discord = require("discord.js");
 const setAtis = require('./cmds/setatis.js');
 const windFile = require('./cmds/wind.js');
 const nicknameFile = require('./cmds/JSONS/nickname.json');
 const { Client } = require('pg')
 const fs = require('fs')
+
 const bot = new Discord.Client({ disableEveryone: true });
-bot.commands = new Discord.Collection();
-module.exports.commands = bot.commands
 const postgres = new Client({
-    user: 'flightline',
-    host: 'localhost',
-    database: 'flightlinebotdb',
-    password: 'bebsi152',
-    port: 5432
+    user: config.psqlConfig.user,
+    host: config.psqlConfig.host,
+    database: config.psqlConfig.database,
+    password: config.psqlConfig.password,
+    port: config.psqlConfig.port
 })
+
+bot.commands = new Discord.Collection();
+module.exports.commands = bot.commands;
 
 fs.readdir("./cmds/", (err, files) => {
 	if(err) console.error(err);
@@ -39,7 +41,7 @@ fs.readdir("./cmds/", (err, files) => {
 });
 
 postgres.connect(err => {
-	if(err) throw err;  
+	if(err) throw err;
 	console.log(`Connecting to database: ${postgres.database}`)
   	console.log(`Connecting as: ${postgres.user}`)
 	console.log(`Connecting to ${postgres.host}:${postgres.port}`)
@@ -47,7 +49,7 @@ postgres.connect(err => {
     console.log("Connected to Database...")
 });
 
-const prefix = botSettings.prefix
+const prefix = config.botConfig.prefix
 
 bot.on("ready", async () => {
     try {
@@ -58,7 +60,7 @@ bot.on("ready", async () => {
 
     console.log("--------------------------------------------------------------------------------------------");
     console.log(`Bot is ready! Logged in as: ${bot.user.username}`);
-    console.log(`Logged in on: ${botSettings.token}`);
+    console.log(`Logged in on: ${config.botConfig.token}`);
     console.log(`Time Logged on: ${new(Date)}`);
     console.log(`The prefix is: ${prefix}`);
     console.log("Below find the invite link should it be needed for the bot to be invited to another server:");
@@ -103,7 +105,7 @@ bot.on("message", async message => {
             module.exports.atisJTPHRawObj = setAtis.atisJTPHRawObj
             module.exports.atisJTPH = setAtis.atisJTPH
         }
-        
+
         if(AirChose === "JSLL"){
             module.exports.atisJSLLRawObj = setAtis.atisJSLLRawObj
             module.exports.atisJSLL = setAtis.atisJSLL
@@ -116,8 +118,8 @@ bot.on("message", async message => {
     }
 
     if(command === `${prefix}wind`){
-       
-       let AirChose = args[0] 
+
+       let AirChose = args[0]
 
        if(AirChose === "JTPH"){
             if(!setAtis.atisJTPHRawObj) return message.channel.send("There is no ATIS set for JTPH so the bot cannot just change the wind of this Airport!")
@@ -139,4 +141,4 @@ bot.on("message", async message => {
    }
 });
 
-bot.login(botSettings.token);
+bot.login(config.botConfig.token);

@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
-const botSettings = require('../botSettings.json')
-const prefix = botSettings.prefix
+const config = require('../config.json')
+const prefix = config.botConfig.prefix
 const index = require("../index.js");
 
 function embedStaffHelp(){

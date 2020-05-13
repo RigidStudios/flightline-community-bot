@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const botSettings = require('../botSettings.json');
-const prefix = botSettings.prefix;
+const config = require('../config.json');
+const prefix = config.botConfig.prefix;
 
 class Atis {
     constructor(Airport, Information, ActRun, Wind, Cloud, Vis, Remarks, Delivery, Ground, Tower, Dir, Center){
@@ -17,7 +17,7 @@ class Atis {
         this.Director = Dir;
         this.Center = Center;
     }
-    
+
     embedMsgATIS(){
     return new Discord.MessageEmbed()
     .setTitle(`ATIS for ${this.Airport}`)
@@ -37,7 +37,6 @@ class Atis {
     .setFooter("ATIS is constantly updated, beware of sudden weather changes!")
     .setColor("#00BFFF");
     }
-    
 }
 
 function embedMsgCommandHintSetATIS(){
@@ -58,7 +57,7 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
         let guild = bot.guilds.cache.get(guildID);
         let member = message.guild.member(message.author);
         let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
-        
+
         if(!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to set ATIS'es");
 
             let messageArray = message.content.split(",");
@@ -67,7 +66,7 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
             let firstArg = firArg[1];
 
             if(sArgs.length < 7) return message.channel.send(embedMsgCommandHintSetATIS());
-            
+
             module.exports.airportSelected = firstArg;
 
             if(firstArg === "JTPH"){
@@ -78,13 +77,13 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 let DirectorFreq = "126.825MHz";
                 let CenterFreq = "132.600MHz";
 
-                let finishedATISJTPH = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);  
+                let finishedATISJTPH = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);
                 message.channel.send(finishedATISJTPH.embedMsgATIS());
                 module.exports.atisJTPH = finishedATISJTPH.embedMsgATIS();
                 module.exports.atisJTPHRawObj = finishedATISJTPH;
             }
-           
-            else if(firstArg === "JSLL"){
+
+            else if(AirportReqIn === "JSLL"){
 
                 let DeliveryFreq = "122.225MHz";
                 let GroundFreq = "119.600MHz";
@@ -92,13 +91,13 @@ module.exports.run = async (bot, postgres, message, args, queueJTPH, queueJSLL, 
                 let DirectorFreq = "130.500MHz";
                 let CenterFreq = "131.775MHz";
 
-                let finishedATISJSLL = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);  
+                let finishedATISJSLL = new Atis(firstArg, sArgs[1], sArgs[2], sArgs[3], sArgs[4], sArgs[5], sArgs[6], DeliveryFreq, GroundFreq, TowerFreq, DirectorFreq, CenterFreq);
                 message.channel.send(finishedATISJSLL.embedMsgATIS());
                 module.exports.atisJSLL = finishedATISJSLL.embedMsgATIS();
                 module.exports.atisJSLLRawObj = finishedATISJSLL;
             }
 
-            else if(firstArg === "JCO4"){
+            else if(AirportReqIn === "JCO4"){
 
                 let DeliveryFreq = "None";
                 let GroundFreq = "None";

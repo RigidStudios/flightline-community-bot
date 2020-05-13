@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const setAtis = require('./setatis.js');
 
 module.exports.run = async (bot, postgres, message, args) => {

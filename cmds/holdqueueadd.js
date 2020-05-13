@@ -24,7 +24,7 @@ function embedMsgQueue(airportQueue){
 
 module.exports.run = async (bot, postgres, message, args) => {
 
-    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
 
         let guildID = "593830690777333770";
         let guild = bot.guilds.cache.get(guildID);
@@ -37,8 +37,6 @@ module.exports.run = async (bot, postgres, message, args) => {
         let sArgs = messageArray.slice(0);
         let firArg = sArgs[0].split(" ");
         let firstArg = firArg[1];
-
-        console.log(args.slice(1).join(" "))
         
         if(!firstArg) return message.channel.send("No airport specified!")
         if(!args.slice(1).join(" ")) return message.channel.send("No aircraft specified!")        
@@ -47,19 +45,19 @@ module.exports.run = async (bot, postgres, message, args) => {
         
         if(firstArg === "JTPH"){
             queueJTPH.push(Aircraft);
-            message.channel.send(embedMsgQueue(queueJTPH));
+            message.channel.send(embedMsgQueue(queueJTPH)).catch(console.error);
             module.exports.queueJTPH = queueJTPH;
         }
 
         if(firstArg === "JSLL"){
             queueJSLL.push(Aircraft);
-            message.channel.send(embedMsgQueue(queueJSLL));
+            message.channel.send(embedMsgQueue(queueJSLL)).catch(console.error);
             module.exports.queueJSLL = queueJSLL;
         }
 
         if(firstArg === "JCO4"){
             queueJCO4.push(Aircraft);
-            message.channel.send(embedMsgQueue(queueJCO4));
+            message.channel.send(embedMsgQueue(queueJCO4)).catch(console.error);
             module.exports.queueJCO4 = queueJCO4;
         }
 

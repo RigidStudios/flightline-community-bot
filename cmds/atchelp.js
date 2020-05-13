@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const index = require("../index.js");
-const prefix = require("../botSettings.json").prefix
+const prefix = require("../config.json").botConfig.prefix
 
 module.exports.run = async (bot, postgres, message, args) => {
 
@@ -18,13 +18,13 @@ module.exports.run = async (bot, postgres, message, args) => {
         
         return embed
     }  
-
-    let role = message.member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     
+    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
+    
+    let role = message.member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     if(!message.member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to view this help section.")
     
-    if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!")
-    message.channel.send(embedMsgATC());
+    message.channel.send(embedMsgATC()).catch(console.error);
 }
 
 module.exports.help = {

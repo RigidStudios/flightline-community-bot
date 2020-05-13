@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-const logins = require('./login.js');
 const nicknameFile = require('./JSONS/nickname.json');
 const fs = require('fs');
 const ms = require('ms');
@@ -10,6 +8,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     let role = message.member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     if (!message.member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to login and out as ATC!");
+
+    if(!nicknameFile[message.author.id]) return message.channel.send("You are not logged in!")
 
     let TimeEnd = new Date().toISOString()
 
@@ -31,7 +31,7 @@ module.exports.run = async (bot, postgres, message, args) => {
                 console.error(e);
             }
 
-            let tHours = r.rows[1].sum
+            let tHours = r.rows[0].sum;
 
             if (tHours === null) {
                 tHours = 0;
@@ -39,8 +39,8 @@ module.exports.run = async (bot, postgres, message, args) => {
 
             let info = {
                 username: username,
-                currentSessionLength: ms(parseInt(r.rows[0].sum), { long: true }),
-                totalHours: ms(parseInt(tHours))
+                totalHours: ms(parseInt(tHours), { long: true }),
+                currentSessionLength: ms(parseInt(r.rows[1].sum))
             }
 
             message.author.send(`Current Statistics for ATC: ${username} \n \n Total Service Time: ${info.totalHours} \n Session Duration: ${info.currentSessionLength}`)

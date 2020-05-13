@@ -3,11 +3,13 @@ const bcrypt = require('bcrypt');
 
 module.exports.run = async (bot, postgres, message, args) => {
 
+    if(!args.length < 3) return message.channel.send("You did not provide all the arguments! Make sure the command looks something similar to this: /register [discordUserID] [username] [password]")
+
     let discord_id = args[0]
     let username = args[1]
     let password = args[2]
 
-    if (message.author.id === "367722931993968650" || message.author.id === "371470625799274508") {
+    if (message.member.roles.cache.find(r => r.name === "ATC Administrator" || r.name === "ATC Instructor")) {
         if (!args[0]) return message.channel.send("You did not provide a username!")
         if (!args[1]) return message.channel.send("You did not set a password!")
 
