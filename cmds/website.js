@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 function embedMsgWebsite(){
     return new Discord.MessageEmbed()
     .setTimestamp(Date.now())
-    .setTitle("Website of the Unofficial Flightline Community!")
+    .setTitle("Website of the Official Flightline Community!")
     .addField("Link to website:", "https://flightlinecharts.weebly.com/")
     .setColor("#00FF00");
 }
