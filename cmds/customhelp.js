@@ -5,19 +5,23 @@ const fs = require("fs")
 const index = require("../index.js");
 
 module.exports.run = async (bot, postgres, message, args) => {
-        
+
     function embedMsgHelp(){
+        
+        let chars = "";
+
+        index.commands.forEach(el => {
+            if(el.help.moderation === true) { return; }
+            else if(el.help.atc === true) { return; }
+            else if(el.help.ownerOnly === true) { return; }
+            else if(el.help.custom === true){
+                chars = chars.concat(el.help.name + "\n")
+            }
+        });
+    
         let embed = new Discord.MessageEmbed()
-        embed.addField("***Note:***", "Anything that has [something], takes a parameter.")
-            index.commands.forEach(el => {
-                if(el.help.moderation === true) { return; }
-                else if(el.help.atc === true) { return; }
-                else if(el.help.ownerOnly === true) { return; }
-                else if(el.help.custom === true) { return; }
-                else if(el.help.moderation === false){
-                    embed.addField(prefix + el.help.format, el.help.description)
-                }
-            });
+            embed.addField("Available custom commands: ", chars)
+
         
             return embed
 
@@ -29,5 +33,5 @@ module.exports.run = async (bot, postgres, message, args) => {
 }
 
 module.exports.help = {
-    name: "help"
+    name: "customhelp"
 }
