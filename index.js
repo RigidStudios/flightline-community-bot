@@ -35,8 +35,30 @@ fs.readdir("./cmds/", (err, files) => {
 		let props = require(`./cmds/${f}`)
 		console.log(`${i + 1}: ${f} loaded!`)
 		bot.commands.set(props.help.name, props)
-	});
-	console.log("--------------------------------------------------------------------------------------------");
+    });
+    
+    console.log("--------------------------------------------------------------------------------------------");
+    
+    fs.readdir("./cmds/custom", (e, f) => {
+        if(e) console.error(e);
+
+        let custom = f.filter(f => f.split(".").pop() === "js");
+        if(custom.length <= 0){
+            console.log("No custom commands to load!");
+            return;
+        }
+    
+        console.log(`Loading ${custom.length} custom commands:`)
+        console.log("                                   ")
+    
+        custom.forEach((f, i) => {
+            let props = require(`./cmds/custom/${f}`)
+            console.log(`${i + 1}: ${f} loaded!`)
+            bot.commands.set(props.help.name, props)
+        });
+        
+        console.log("--------------------------------------------------------------------------------------------");
+    })
 
 });
 

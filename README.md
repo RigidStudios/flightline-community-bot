@@ -54,6 +54,10 @@ Loading x commands:
 
 All commands that were loaded.
 --------------------------------------------------------------------------------------------
+Loading x custom commands:
+
+All commands that were loaded.
+--------------------------------------------------------------------------------------------
 Connecting to database: [Database Name]
 Connecting as: [Username]
 Connecting to [Usually localhost:[port]]
