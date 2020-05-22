@@ -3,8 +3,10 @@ const bcrypt = require('bcrypt');
 
 module.exports.run = async (bot, postgres, message, args) => {
 
-    if(!args.length < 3) return message.channel.send("You did not provide all the arguments! Make sure the command looks something similar to this: /register [discordUserID] [username] [password]")
-
+    if (!args[0]) return message.channel.send("You did not provide all the arguments! Make sure the command looks something similar to this: /register [discordUserID] [username] [password]")
+    if (!args[1]) return message.channel.send("You did not provide all the arguments! Make sure the command looks something similar to this: /register [discordUserID] [username] [password]")
+    if (!args[2]) return message.channel.send("You did not provide all the arguments! Make sure the command looks something similar to this: /register [discordUserID] [username] [password]")
+    
     let discord_id = args[0]
     let username = args[1]
     let password = args[2]
@@ -21,7 +23,7 @@ module.exports.run = async (bot, postgres, message, args) => {
         });
 
         collector.on('end', collected => {
-            if (collected.first().content === "") {
+            if (collected.first().content === "roverisdownagain420") {
                 message.author.send(`Sucessfully authorised!`)
                 bcrypt.hash(password, 10, function (err, hash) {
                     postgres.query(`INSERT INTO login_details (username, password, discord_id) VALUES ('${username}','${hash}', ${discord_id});`, (err, res) => {
