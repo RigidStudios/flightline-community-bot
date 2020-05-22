@@ -3,7 +3,7 @@
 [![Discord Members Online](https://discordapp.com/api/guilds/593830690777333770/embed.png)](https://discord.gg/XDsWaZq)
 
 This repository hosts the code for the discord bot that is used by the Flightline Community.
-This code, as of v3.3.1.1 includes:
+This code, as of v3.3.2 includes:
 
 - ATIS System that can be created by an ATC with the appropriate role.
 - Holdqueue system that can be used by ATCs.
