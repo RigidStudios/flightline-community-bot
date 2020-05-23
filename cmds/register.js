@@ -23,7 +23,7 @@ module.exports.run = async (bot, postgres, message, args) => {
         });
 
         collector.on('end', collected => {
-            if (collected.first().content === "roverisdownagain420") {
+            if (collected.first().content === "") {
                 message.author.send(`Sucessfully authorised!`)
                 bcrypt.hash(password, 10, function (err, hash) {
                     postgres.query(`INSERT INTO login_details (username, password, discord_id) VALUES ('${username}','${hash}', ${discord_id});`, (err, res) => {
