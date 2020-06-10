@@ -13,6 +13,8 @@ module.exports.run = async (bot, postgres, message, args) => {
     let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
 
     if (!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to login as ATC!");
+    
+    if (nicknameFile[message.author.id]) return message.channel.send("You are already logged in!");
 
     if (!args[0]) return message.channel.send("No username provided!");
     if (!args[1]) return message.channel.send("No airport provided!");
