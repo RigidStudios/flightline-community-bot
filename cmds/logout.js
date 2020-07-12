@@ -2,6 +2,14 @@ const nicknameFile = require('./JSONS/nickname.json');
 const fs = require('fs');
 const ms = require('ms');
 
+class logoutInfo {
+    constructor(username, currentSessionLength, totalHours) {
+        this.username = username;
+        this.currentSessionLength = currentSessionLength;
+        this.totalHours = totalHours;
+    }
+}
+
 module.exports.run = async (bot, postgres, message, args) => {
 
     if (message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
@@ -9,7 +17,7 @@ module.exports.run = async (bot, postgres, message, args) => {
     let role = message.member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
     if (!message.member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to login and out as ATC!");
 
-    if(!nicknameFile[message.author.id]) return message.channel.send("You are not logged in!")
+    if (!nicknameFile[message.author.id]) return message.channel.send("You are not logged in!")
 
     let TimeEnd = new Date().toISOString()
 
@@ -22,7 +30,7 @@ module.exports.run = async (bot, postgres, message, args) => {
 
         let username = nicknameFile[message.author.id].username
 
-        
+        let info;
 
         postgres.query(`SELECT SUM(durationunix) FROM login_logs WHERE username = '${username}' UNION SELECT durationunix FROM login_logs WHERE time_end = '${TimeEnd}';`, (e, r) => {
 
@@ -34,29 +42,29 @@ module.exports.run = async (bot, postgres, message, args) => {
             // r.rows[0].sum == Session Duration
             // r.rows[1].sum == Total ATC Hours
 
-            let tHours = r.rows[1].sum;
+            let tHours;
+            let CSL;
 
-            if (tHours === null) {
-                tHours = 0;
-            }
+            if (!r.rows[1]) {
+                tHours = 0
+            } else tHours = r.rows[1].sum;
 
-            let info = {
-                username: username,
-                currentSessionLength: ms(parseInt(r.rows[0].sum), { long: true }),
-                totalHours: ms(parseInt(tHours))
-            }
+            if(r.rows[0].sum === typeof null){
+                CSL = 0
+            } else CSL = r.rows[0].sum
 
-            message.author.send(`Current Statistics for ATC: ${username} \n \n Total Service Time: ${info.totalHours} \n Session Duration: ${info.currentSessionLength}`)
+            info = new logoutInfo(username, ms(parseInt(r.rows[0].sum), { long: true }), ms(parseInt(tHours)));
 
+            delete nicknameFile[message.author.id]
+
+            fs.writeFile('./cmds/JSONS/nickname.json', JSON.stringify(nicknameFile, null, 2), err => {
+                if (err) console.log(err)
+            })
+
+            message.author.send(`Current Statistics for ATC: ${username} \n \n Total Service Time: ${info.totalHours} \n Session Duration: ${info.currentSessionLength} \n \nLogout successful!`)
         });
-        
-        delete nicknameFile[message.author.id]
 
-        fs.writeFile('./cmds/JSONS/nickname.json', JSON.stringify(nicknameFile, null, 2), err => {
-            if (err) console.log(err)
-        })
 
-        message.author.send("Logout successful!");
     });
 }
 
