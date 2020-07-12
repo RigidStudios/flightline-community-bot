@@ -7,13 +7,11 @@ module.exports.run = async (bot, postgres, message, args) => {
 
     if(message.channel.type === "dm") return message.channel.send("This command only works in the server chats!").catch(console.error);
 
-    let guildID = "593830690777333770";
-    let guild = bot.guilds.cache.get(guildID);
     let member = message.guild.member(message.author);
     let role = member.guild.roles.cache.find(r => r.name === "----------------- ATC Staff -----------------");
 
     if (!member.roles.cache.has(role.id)) return message.channel.send("Only ATC's are allowed to login as ATC!");
-    
+
     if (nicknameFile[message.author.id]) return message.channel.send("You are already logged in!");
 
     if (!args[0]) return message.channel.send("No username provided!");
@@ -77,6 +75,23 @@ module.exports.run = async (bot, postgres, message, args) => {
             let memberNick = `(${nicknameFile[message.author.id].airport} ${nicknameFile[message.author.id].position}) - ${nicknameFile[message.author.id].originNick}`
 
             if (member.manageable) {
+
+                let role = message.guild.roles.cache.find(r => r.name === "On Duty")
+                if(!role) {
+                    try {
+                        role = await message.guild.roles.create({
+                            data: {
+                                name: 'On Duty',
+                                mentionable: true
+                            }
+                        })
+                    } catch(e) {
+                        console.log(e)
+                    }
+                }
+
+                member.roles.add(role)
+
                 if (memberNick.length > 32) message.channel.send("Nickname was not changed due to the 32 character limit.")
                 else member.setNickname(memberNick)
             }
