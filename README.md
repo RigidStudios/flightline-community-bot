@@ -12,10 +12,21 @@ This code, as of v3.3.3 includes:
 
 # Table of contents
 
+- [Change Log](https://github.com/supraaxdd/flightline-community-bot/#change-log)
 - [Installation and setup](https://github.com/supraaxdd/flightline-community-bot/#installation-and-setup)
 - [Support](https://github.com/supraaxdd/flightline-community-bot/#support)
 - [Contributing](https://github.com/supraaxdd/flightline-community-bot/#contributing)
 - [Acknowledgements](https://github.com/supraaxdd/flightline-community-bot/#acknowledgements)
+
+## Change Log
+
+This log will contain the updates that have been done to the most recent version.
+
+v3.3.3
+
+- [/cmds/login.js](https://github.com/supraaxdd/flightline-community-bot/blob/master/cmds/login.js) - Performance improvement + Created role addition on login.
+- [/cmds/atcstatsid](https://github.com/supraaxdd/flightline-community-bot/blob/master/cmds/atcstatsid.js) - Look up ATC stats using Discord IDs that are assigned to each account.
+- [/cmds/logout.js](https://github.com/supraaxdd/flightline-community-bot/blob/master/cmds/logout.js) - To improve performance, used object constructor to create info object + included "Logout Successful" message in with the logout information.
 
 ## Installation and setup
 
@@ -65,8 +76,8 @@ Connected to Database...
 --------------------------------------------------------------------------------------------
 Bot is ready! Logged in as: [Bot Username]
 Logged in on: [Bot Token]
-Time Logged on: Mon Apr 20 2020 08:36:39 GMT+0100 (Irish Standard Time)
-The prefix is: /
+Time Logged on: [Time Logged on using local machine time]
+The prefix is: [Prefix]
 Below find the invite link should it be needed for the bot to be invited to another server:
 [Link Generated]
 --------------------------------------------------------------------------------------------
